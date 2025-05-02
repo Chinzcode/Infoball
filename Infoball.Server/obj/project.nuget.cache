@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "2oAWYogtHOg=",
+  "dgSpecHash": "uZnxVWrs8qQ=",
   "success": true,
   "projectFilePath": "/Users/tryms/Sites/InfoballV2/Infoball.Server/Infoball.Server.csproj",
   "expectedPackageFiles": [
+    "/Users/tryms/.nuget/packages/microsoft.aspnetcore.components.webassembly.server/9.0.4/microsoft.aspnetcore.components.webassembly.server.9.0.4.nupkg.sha512",
     "/Users/tryms/.nuget/packages/microsoft.aspnetcore.openapi/9.0.3/microsoft.aspnetcore.openapi.9.0.3.nupkg.sha512",
     "/Users/tryms/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
   ],
