@@ -1,1 +1,18 @@
-Infoball
+# Infoball
+
+A web application built with ASP.NET Core Blazor that provides an interactive overview of football matches, teams, leagues and player statistics.
+
+## Features
+- Browse upcoming and past football matches
+- View league tables and team standings
+- See detailed team and player statistics
+
+## Tech Stack
+- Frontend: Blazor WebAssembly
+- Backend: ASP.NET Core
+- Language: C#
+
+## NuGet
+- Microsoft.AspNetCore.Components.WebAssembly
+- Microsoft.AspNetCore.OpenApi
+
