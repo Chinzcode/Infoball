@@ -1,6 +1,6 @@
 @Infoball.Server_HostAddress = http://localhost:5276
 
-GET {{Infoball.Server_HostAddress}}/weatherforecast/
-Accept: application/json
+# GET {{Infoball.Server_HostAddress}}/api/yourEndpoint
+# Accept: application/json
 
 ###
