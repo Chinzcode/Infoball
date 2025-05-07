@@ -1,0 +1,19 @@
+<li @attributes="AdditionalAttributes">
+	<NavLink href="@GetLeagueUrl()" class="nav-link">
+		@LeagueName
+	</NavLink>
+</li>
+
+@code {
+	[Parameter]
+	public string LeagueName { get; set; } = string.Empty;
+
+	[Parameter(CaptureUnmatchedValues = true)]
+	public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+	private string GetLeagueUrl()
+	{
+		var slug = SlugHelper.ToSlug(LeagueName);
+		return $"/leagues/{slug}";
+	}
+}
