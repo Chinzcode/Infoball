@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Infoball.Shared\Infoball.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Infoball.Client\Infoball.Client.csproj" />
+  </ItemGroup>
+
 </Project>
