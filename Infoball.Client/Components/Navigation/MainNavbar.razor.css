@@ -1,0 +1,17 @@
+.main-navbar {
+	background-color: greenyellow;
+	padding: 1rem;
+	border-bottom: 1px solid #ccc;
+}
+
+.nav-list {
+	list-style: none;
+	display: flex;
+	gap: 1rem;
+	margin: 0;
+	padding: 0;
+}
+
+.nav-item {
+	display: inline-block;
+}
