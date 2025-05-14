@@ -1,6 +1,6 @@
 namespace Infoball.Shared.DTO
 {
-	public class LeagueLinkDTO
+	public class LeagueLink
 	{
 		public string Name { get; set; }
 	}

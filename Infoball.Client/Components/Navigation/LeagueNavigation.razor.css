@@ -1,10 +1,10 @@
-.main-navbar {
+.league-navigation {
 	background-color: greenyellow;
 	padding: 1rem;
 	border-bottom: 1px solid #ccc;
 }
 
-.nav-list {
+.league-navigation-list {
 	list-style: none;
 	display: flex;
 	gap: 1rem;
@@ -12,6 +12,6 @@
 	padding: 0;
 }
 
-.nav-item {
+.league-navigation-item {
 	display: inline-block;
 }

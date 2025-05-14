@@ -1,0 +1,17 @@
+<nav class="league-navigation">
+	<ul class="league-navigation-list">
+		@foreach (var league in leagues)
+		{
+			<LeagueNavigationItem LeagueName="@league.Name" class="league-navigation-item" />
+		}
+	</ul>
+</nav>
+
+@code {
+	private List<LeagueLink> leagues = new()
+	{
+		new LeagueLink { Name = "Premier League" },
+		new LeagueLink { Name = "La Liga" },
+		new LeagueLink { Name = "Eliteserien" },
+	};
+}
