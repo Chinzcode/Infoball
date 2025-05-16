@@ -1,5 +1,5 @@
 .league-navigation {
-	background-color: greenyellow;
+	background-color: var(--secondary-color);
 	padding: 1rem;
 	border-bottom: 1px solid #ccc;
 }
