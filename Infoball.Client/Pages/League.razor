@@ -1,0 +1,11 @@
+﻿@page "/leagues/{slug}"
+
+<PageTitle>@Slug</PageTitle>
+
+<h1>@Slug</h1>
+
+@code {
+
+    [Parameter]
+    public string Slug { get; set; } = string.Empty;
+}

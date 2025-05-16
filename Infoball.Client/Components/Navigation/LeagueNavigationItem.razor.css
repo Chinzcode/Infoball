@@ -1,0 +1,12 @@
+.league-nav-link {
+	text-decoration: none;
+	color: #fff;
+	padding: 0.5rem 1rem;
+	border-radius: 0.25rem;
+	transition: background-color 0.2s ease;
+}
+
+.league-nav-link.active, .league-nav-link:hover {
+	background-color: #f0f0f0;
+	color: #000;
+}
