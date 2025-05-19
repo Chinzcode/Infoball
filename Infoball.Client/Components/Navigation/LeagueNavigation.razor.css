@@ -1,7 +1,5 @@
 .league-navigation {
-	background-color: var(--secondary-color);
-	padding: 1rem;
-	border-bottom: 1px solid #ccc;
+  padding: 4rem 0;
 }
 
 .league-navigation-list {
@@ -12,6 +10,3 @@
 	padding: 0;
 }
 
-.league-navigation-item {
-	display: inline-block;
-}

@@ -1,6 +1,11 @@
 <li @attributes="AdditionalAttributes">
-	<NavLink href="@GetLeagueUrl()" class="league-nav-link">
-		@LeagueName
+  <NavLink href="@GetLeagueUrl()" class="league-nav-link" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; text-decoration: none; width: 100%;">
+    <div>
+      <img src="images/PremierLeagueLogo.png" alt="test" class="league-image" />
+    </div>
+    <span class="league-name">
+      @LeagueName
+    </span>
 	</NavLink>
 </li>
 
