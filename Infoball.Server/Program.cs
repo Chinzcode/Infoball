@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Infoball.Server.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
@@ -6,6 +9,10 @@ builder.Services.AddOpenApi();
 
 // Add API controllers
 builder.Services.AddControllers();
+
+//Register database context
+builder.Services.AddDbContext<LeagueContext>(opt =>
+    opt.UseInMemoryDatabase("LeagueList"));
 
 // Add Blazor WebAssembly hosting services
 builder.Services.AddControllersWithViews();
