@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Infoball.Server.Models;
+using Infoball.Server.Services;
+using Infoball.Server.Services.Interfaces;
+using Infoball.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,12 @@ builder.Services.AddControllers();
 //Register database context
 builder.Services.AddDbContext<LeagueContext>(opt =>
     opt.UseInMemoryDatabase("LeagueList"));
+
+builder.Services.AddDbContext<ApplicationDbContext>(opt =>
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//Register services
+builder.Services.AddScoped<ITeamService, TeamService>();
 
 // Add Blazor WebAssembly hosting services
 builder.Services.AddControllersWithViews();
