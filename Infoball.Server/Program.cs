@@ -23,6 +23,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 //Register services
 builder.Services.AddScoped<ITeamService, TeamService>();
 
+//Load .env file
+DotNetEnv.Env.Load();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    .Replace("{DB_USERNAME}", Environment.GetEnvironmentVariable("DB_USERNAME"))
+    .Replace("{DB_PASSWORD}", Environment.GetEnvironmentVariable("DB_PASSWORD"));
+
 // Add Blazor WebAssembly hosting services
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
