@@ -4,30 +4,34 @@ using Infoball.Server.Services;
 using Infoball.Server.Services.Interfaces;
 using Infoball.Server.Data;
 
+//Load .env file
+DotNetEnv.Env.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 
+// Get ConnectionString
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+//Replace username and password in ConnectionString
+var updatedConnectionString = connectionString
+    .Replace("{DB_USERNAME}", Environment.GetEnvironmentVariable("DB_USERNAME"))
+    .Replace("{DB_PASSWORD}", Environment.GetEnvironmentVariable("DB_PASSWORD"));
+
+builder.Configuration["ConnectionStrings:DefaultConnection"] = updatedConnectionString;
+
+//Register database context
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySQL(updatedConnectionString));
+
 // Add services to the container
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 // Add API controllers
 builder.Services.AddControllers();
 
-//Register database context
-builder.Services.AddDbContext<LeagueContext>(opt =>
-    opt.UseInMemoryDatabase("LeagueList"));
-
-builder.Services.AddDbContext<ApplicationDbContext>(opt =>
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 //Register services
 builder.Services.AddScoped<ITeamService, TeamService>();
-
-//Load .env file
-DotNetEnv.Env.Load();
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    .Replace("{DB_USERNAME}", Environment.GetEnvironmentVariable("DB_USERNAME"))
-    .Replace("{DB_PASSWORD}", Environment.GetEnvironmentVariable("DB_PASSWORD"));
 
 // Add Blazor WebAssembly hosting services
 builder.Services.AddControllersWithViews();
