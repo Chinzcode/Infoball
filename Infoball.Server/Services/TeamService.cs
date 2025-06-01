@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Infoball.Server.Services.Interfaces;
-using Infoball.Server.Models;
+using Infoball.Shared.Models;
 using Infoball.Server.Data;
 
 namespace Infoball.Server.Services;

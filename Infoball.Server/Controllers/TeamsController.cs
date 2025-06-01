@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Infoball.Server.Services.Interfaces;
-using Infoball.Server.Models;
+using Infoball.Shared.Models;
 
 namespace Infoball.Server.Controllers;
 

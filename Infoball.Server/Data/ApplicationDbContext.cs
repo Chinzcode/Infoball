@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Infoball.Server.Models;
+using Infoball.Shared.Models;
 
 namespace Infoball.Server.Data;
 

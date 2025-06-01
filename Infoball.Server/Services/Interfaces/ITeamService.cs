@@ -1,4 +1,4 @@
-using Infoball.Server.Models;
+using Infoball.Shared.Models;
 
 namespace Infoball.Server.Services.Interfaces;
 
