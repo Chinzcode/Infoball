@@ -1,4 +1,4 @@
-namespace Infoball.Server.Models;
+namespace Infoball.Shared.Models;
 
 public class League
 {
