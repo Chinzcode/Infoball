@@ -23,12 +23,12 @@ public class FootballApiClient : IApiClient
         _httpClient.DefaultRequestHeaders.Add("x-rapidapi-host", "v3.football.api-sports.io");
     }
 
-    public async Task<string> FetchRawDataAsync(Dictionary<string, string> queryParams)
+    public async Task<string> FetchRawDataAsync(string endpoint, Dictionary<string, string> queryParams)
     {
         try
         {
             var queryString = BuildQueryString(queryParams);
-            var url = $"{_baseUrl}?{queryString}";
+            var url = $"{_baseUrl}/{endpoint}?{queryString}";
 
             var response = await _httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
@@ -42,11 +42,11 @@ public class FootballApiClient : IApiClient
         }
     }
 
-    public async Task<T?> FetchDataAsync<T>(Dictionary<string, string> queryParams) where T : class
+    public async Task<T?> FetchDataAsync<T>(string endpoint, Dictionary<string, string> queryParams) where T : class
     {
         try
         {
-            var json = await FetchRawDataAsync(queryParams);
+            var json = await FetchRawDataAsync(endpoint, queryParams);
 
             if (string.IsNullOrEmpty(json))
             {
