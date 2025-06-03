@@ -28,7 +28,6 @@ publish/
 **/publish/
 
 .env
-.env.*
 
 *.db
 *.sqlite
