@@ -34,6 +34,7 @@ builder.Services.AddControllers();
 //Register services
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddHttpClient<IApiClient, FootballApiClient>();
+builder.Services.AddScoped<IStandingsApiClient, StandingsApiClient>();
 
 // Add Blazor WebAssembly hosting services
 builder.Services.AddControllersWithViews();
