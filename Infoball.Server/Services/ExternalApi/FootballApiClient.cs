@@ -14,11 +14,13 @@ public class FootballApiClient : IApiClient
     {
         _httpClient = httpClient;
         _logger = logger;
+        _baseUrl = "https://v3.football.api-sports.io";
 
-        var apiKey = ""; //TODO Get Api key
-        _baseUrl = ""; //TODO Get base url
+        var apiKey = Environment.GetEnvironmentVariable("FOOTBALL_API_KEY")
+            ?? throw new InvalidOperationException("FOOTBALL_API_KEY environment variable is required");
 
-        //TODO Set headers
+        _httpClient.DefaultRequestHeaders.Add("x-rapidapi-key", apiKey);
+        _httpClient.DefaultRequestHeaders.Add("x-rapidapi-host", "v3.football.api-sports.io");
     }
 
     public async Task<string> FetchRawDataAsync(Dictionary<string, string> queryParams)
