@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Infoball.Shared.Models;
 using Infoball.Server.Services;
 using Infoball.Server.Services.Interfaces;
+using Infoball.Server.Services.ExternalApi;
 using Infoball.Server.Data;
 
 //Load .env file
@@ -32,6 +33,8 @@ builder.Services.AddControllers();
 
 //Register services
 builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddHttpClient<IApiClient, FootballApiClient>();
+builder.Services.AddScoped<IStandingsApiClient, StandingsApiClient>();
 
 // Add Blazor WebAssembly hosting services
 builder.Services.AddControllersWithViews();
