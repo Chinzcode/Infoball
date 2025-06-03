@@ -22,4 +22,15 @@ public class StandingsApiClient : IStandingsApiClient
 
         return await _apiClient.FetchRawDataAsync(Endpoint, queryParams);
     }
+
+    public async Task<T?> GetStandingsAsync<T>(int league, int season) where T : class
+    {
+        var queryParams = new Dictionary<string, string>
+        {
+            ["league"] = league.ToString(),
+            ["season"] = season.ToString()
+        };
+
+        return await _apiClient.FetchDataAsync<T>(Endpoint, queryParams);
+    }
 }
