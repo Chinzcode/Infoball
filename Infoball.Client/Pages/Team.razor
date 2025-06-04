@@ -1,0 +1,13 @@
+@page "/team"
+@inject TeamApiService TeamApiService
+
+<p>@team.Name</p>
+
+@code {
+    private TeamDto? team;
+
+    protected override async Task OnInitializedAsync()
+    {
+      team = await TeamApiService.GetTeamAsync(1);
+    }
+}
