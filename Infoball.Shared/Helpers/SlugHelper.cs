@@ -1,17 +1,17 @@
-namespace Infoball.Shared.Utility
+namespace Infoball.Shared.Helpers
 {
-	public static class SlugHelper
-	{
+    public static class SlugHelper
+    {
 
-		public static string ToSlug(string input)
-		{
-			return input
-				.ToLowerInvariant()
-				.Replace(" ", "-")
-				.Replace(".", "")
-				.Replace(",", "")
-				.Replace("'", "")
-				.Trim();
-		}
-	}
+        public static string ToSlug(string input)
+        {
+            return input
+                .ToLowerInvariant()
+                .Replace(" ", "-")
+                .Replace(".", "")
+                .Replace(",", "")
+                .Replace("'", "")
+                .Trim();
+        }
+    }
 }
