@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Infoball.Server.Data.Entities;
 
-public class TeamEntity
+public class Team
 {
     [Key]
     public int Id { get; set; }
