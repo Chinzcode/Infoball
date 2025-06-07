@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Infoball.Server.Services.Interfaces;
-using Infoball.Shared.Models.ApiModels;
+using Infoball.Server.ExternalAPIs.ApiFootball.Interfaces;
+using Infoball.Server.ExternalAPIs.ApiFootball.Models;
 
 namespace Infoball.Server.Controllers;
 
@@ -15,8 +15,8 @@ public class StandingsController : ControllerBase
         _standingsClient = standingsClient;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetStandings([FromQuery] int league, [FromQuery] int season)
+    [HttpGet("{league}/{season}")]
+    public async Task<IActionResult> GetStandings(int league, int season)
     {
         try
         {
@@ -41,9 +41,9 @@ public class StandingsController : ControllerBase
         }
     }
 
-    [HttpGet("{league}/{season}")]
-    public async Task<IActionResult> GetStandinsByRoute(int league, int season)
-    {
-        return await GetStandings(league, season);
-    }
+    // [HttpGet("{league}/{season}")]
+    // public async Task<IActionResult> GetStandinsByRoute(int league, int season)
+    // {
+    //     return await GetStandings(league, season);
+    // }
 }
