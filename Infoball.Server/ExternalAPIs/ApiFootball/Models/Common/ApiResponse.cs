@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Infoball.Shared.Models;
+namespace Infoball.Server.ExternalAPIs.ApiFootball.Models.Common;
 
 public class ApiResponse<T>
 {
@@ -17,7 +17,7 @@ public class ApiResponse<T>
     public int Results { get; set; }
 
     [JsonPropertyName("paging")]
-    public Dictionary<int, int>? Paging { get; set; }
+    public Dictionary<string, int>? Paging { get; set; }
 
     [JsonPropertyName("response")]
     public T? Response { get; set; }

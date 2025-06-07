@@ -1,8 +1,8 @@
-using Infoball.Server.Services.Interfaces;
-using Infoball.Shared.Models;
+using Infoball.Server.ExternalAPIs.ApiFootball.Interfaces;
+using Infoball.Server.ExternalAPIs.ApiFootball.Models.Common;
 using System.Text.Json;
 
-namespace Infoball.Server.Services.ExternalApi;
+namespace Infoball.Server.ExternalAPIs.ApiFootball.Clients;
 
 public class FootballApiClient : IApiClient
 {
@@ -23,7 +23,7 @@ public class FootballApiClient : IApiClient
         _httpClient.DefaultRequestHeaders.Add("x-rapidapi-host", "v3.football.api-sports.io");
     }
 
-    public async Task<string> FetchRawDataAsync(string endpoint, Dictionary<string, string> queryParams)
+    public async Task<T?> GetDataAsync<T>(string endpoint, Dictionary<string, string> queryParams) where T : class
     {
         try
         {
@@ -33,20 +33,7 @@ public class FootballApiClient : IApiClient
             var response = await _httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
-            return await response.Content.ReadAsStringAsync();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error fetching raw data from API");
-            return string.Empty;
-        }
-    }
-
-    public async Task<T?> FetchDataAsync<T>(string endpoint, Dictionary<string, string> queryParams) where T : class
-    {
-        try
-        {
-            var json = await FetchRawDataAsync(endpoint, queryParams);
+            var json = await response.Content.ReadAsStringAsync();
 
             if (string.IsNullOrEmpty(json))
             {
@@ -55,10 +42,11 @@ public class FootballApiClient : IApiClient
 
             var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(json);
             return apiResponse?.Response ?? default;
+
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error deserializing API respone");
+            _logger.LogError(ex, "Error fetching data from API");
             return default(T);
         }
     }
