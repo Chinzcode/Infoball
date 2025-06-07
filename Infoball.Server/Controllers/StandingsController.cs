@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Infoball.Server.ExternalAPIs.ApiFootball.Interfaces;
-using Infoball.Server.ExternalAPIs.ApiFootball.Models;
+using Infoball.Server.Services.Interfaces;
 
 namespace Infoball.Server.Controllers;
 
@@ -15,8 +14,8 @@ public class StandingsController : ControllerBase
         _standingsClient = standingsClient;
     }
 
-    [HttpGet("{league}/{season}")]
-    public async Task<IActionResult> GetStandings(int league, int season)
+    [HttpGet]
+    public async Task<IActionResult> GetStandins([FromQuery] int league, [FromQuery] int season)
     {
         try
         {
@@ -25,14 +24,14 @@ public class StandingsController : ControllerBase
                 return BadRequest("League and season numbers not valid");
             }
 
-            var standings = await _standingsClient.GetStandingsAsync<StandingsResponse[]>(league, season);
+            var rawData = await _standingsClient.GetStandingsRawAsync(league, season);
 
-            if (standings == null)
+            if (string.IsNullOrEmpty(rawData))
             {
-                return NotFound("No standings data found for the specified league and season");
+                return BadRequest("No standings data found for the specified league and season");
             }
 
-            return Ok(standings);
+            return Ok(rawData);
         }
         catch (Exception ex)
         {
@@ -41,9 +40,9 @@ public class StandingsController : ControllerBase
         }
     }
 
-    // [HttpGet("{league}/{season}")]
-    // public async Task<IActionResult> GetStandinsByRoute(int league, int season)
-    // {
-    //     return await GetStandings(league, season);
-    // }
+    [HttpGet("{league}/{season}")]
+    public async Task<IActionResult> GetStandinsByRoute(int league, int season)
+    {
+        return await GetStandins(league, season);
+    }
 }
