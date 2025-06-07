@@ -1,6 +1,7 @@
-using Infoball.Server.Services.Interfaces;
+using Infoball.Server.ExternalAPIs.ApiFootball.Interfaces;
+using Infoball.Server.ExternalAPIs.ApiFootball.Models.Standings;
 
-namespace Infoball.Server.Services.ExternalApi;
+namespace Infoball.Server.ExternalAPIs.ApiFootball.Clients;
 
 public class StandingsApiClient : IStandingsApiClient
 {
@@ -12,7 +13,7 @@ public class StandingsApiClient : IStandingsApiClient
         _apiClient = apiClient;
     }
 
-    public async Task<string> GetStandingsRawAsync(int league, int season)
+    public async Task<List<Response>?> GetStandingsAsync(int league, int season)
     {
         var queryParams = new Dictionary<string, string>
         {
@@ -20,6 +21,6 @@ public class StandingsApiClient : IStandingsApiClient
             ["season"] = season.ToString()
         };
 
-        return await _apiClient.FetchRawDataAsync(Endpoint, queryParams);
+        return await _apiClient.GetDataAsync<List<Response>>(Endpoint, queryParams);
     }
 }

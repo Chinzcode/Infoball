@@ -1,57 +1,23 @@
-using Microsoft.EntityFrameworkCore;
 using Infoball.Server.Services.Interfaces;
-using Infoball.Shared.Models;
-using Infoball.Server.Data;
+using Infoball.Shared.Models.Domain;
+using Infoball.Server.Repositories.Interfaces;
 
 namespace Infoball.Server.Services;
 
 public class TeamService : ITeamService
 {
-    private readonly ApplicationDbContext _context;
+    private readonly ITeamRepository _teamRepository;
 
-    public TeamService(ApplicationDbContext context)
+    public TeamService(ITeamRepository teamRepository)
     {
-        _context = context;
+        _teamRepository = teamRepository;
     }
 
-    public async Task<List<Team>> GetTeamsAsync()
+    public async Task<Team?> GetTeamAsync(int id)
     {
-        return await _context.Teams.ToListAsync();
-    }
+        //TODO: Check if cached. If not cached then use repository to get data from DB
 
-    public async Task<Team?> GetTeamByIdAsync(int id)
-    {
-        return await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
-    }
-
-    public async Task<Team> CreateTeamAsync(Team team)
-    {
-        _context.Teams.Add(team);
-        await _context.SaveChangesAsync();
+        var team = await _teamRepository.GetTeamByIdAsync(id);
         return team;
-    }
-
-    public async Task<Team?> UpdateTeamAsync(Team team)
-    {
-        var existingTeam = await _context.Teams.FindAsync(team.Id);
-        if (existingTeam == null)
-            return null;
-
-        _context.Entry(existingTeam).CurrentValues.SetValues(team);
-        await _context.SaveChangesAsync();
-        return existingTeam;
-    }
-
-    public async Task<bool> DeleteTeamAsync(int id)
-    {
-        var team = await _context.Teams.FindAsync(id);
-        if (team == null)
-        {
-            return false;
-        }
-
-        _context.Teams.Remove(team);
-        await _context.SaveChangesAsync();
-        return true;
     }
 }
