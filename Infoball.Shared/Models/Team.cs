@@ -1,9 +1,9 @@
-namespace Infoball.Shared.Models.DTOs;
+namespace Infoball.Shared.Models;
 
 /// <summary>
 /// Team Model
 /// </summary>
-public class TeamDto
+public class Team
 {
     public int Id { get; set; }
     public string? Name { get; set; }
