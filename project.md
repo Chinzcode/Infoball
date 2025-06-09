@@ -3,6 +3,10 @@
 Client Side: Blazor Components -> Client Service
 Server Side: Controller -> Service -> Cache(miss) -> Repository -> DB(miss) -> API
 
+Controller → Service → Cache → Repository → Database
+                  ↓ (if cache/db miss)
+                API Client → External API
+
 
 1. Blazor Component (Client)
 Infoball.Client/Components/Pages/PlayerStats.razor
