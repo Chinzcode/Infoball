@@ -16,17 +16,29 @@ public class StandingsRepository : IStandingsRepository
 
     public async Task<List<Standing>?> GetLeagueStandingsAsync(int leagueId, int season)
     {
-        var standingEntities = await _context.Standings
+        var standingEntities = await _context.Standing
           .Where(s => s.LeagueId == leagueId && s.Season == season)
-          .Include(s = s.Team)
-          .OrderBy(s = s.Rank)
+          .Include(s => s.Team)
+          .OrderBy(s => s.Rank)
           .ToListAsync();
 
-        return new Team
+        if (!standingEntities.Any())
         {
-            Id = teamEntity.Id,
-            Name = teamEntity.Name,
-            League = teamEntity.League
-        };
+            return null;
+        }
+
+        return standingEntities.Select(entity => new Standing
+        {
+            Rank = entity.Rank,
+            TeamId = entity.TeamId,
+            Points = entity.Points,
+            MatchesPlayed = entity.MatchesPlayed,
+            Wins = entity.Wins,
+            Draws = entity.Draws,
+            Losses = entity.Losses,
+            GoalsFor = entity.GoalsFor,
+            GoalsAgainst = entity.GoalsAgainst,
+            GoalDifference = entity.GoalDifference
+        }).ToList();
     }
 }
