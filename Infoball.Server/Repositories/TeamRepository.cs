@@ -36,39 +36,39 @@ public class TeamRepository : ITeamRepository
         };
     }
 
-    // public async Task<List<Team>> GetTeamsAsync()
-    // {
-    //     return await _context.Teams.ToListAsync();
-    // }
+    public async Task SaveTeamAsync(Team team)
+    {
+        var existingEntity = await _context.Team.FirstOrDefaultAsync(t => t.Id == team.Id);
 
-    // public async Task<Team> CreateTeamAsync(Team team)
-    // {
-    //     _context.Teams.Add(team);
-    //     await _context.SaveChangesAsync();
-    //     return team;
-    // }
+        if (existingEntity == null)
+        {
+            var teamEntity = new Infoball.Server.Data.Entities.Team
+            {
+                Id = team.Id,
+                Name = team.Name,
+                League = team.League,
+                Logo = team.Logo,
+                Code = team.Code,
+                Country = team.Country,
+                Founded = team.Founded,
+                IsNational = false,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
 
-    // public async Task<Team?> UpdateTeamAsync(Team team)
-    // {
-    //     var existingTeam = await _context.Teams.FindAsync(team.Id);
-    //     if (existingTeam == null)
-    //         return null;
-    //
-    //     _context.Entry(existingTeam).CurrentValues.SetValues(team);
-    //     await _context.SaveChangesAsync();
-    //     return existingTeam;
-    // }
+            await _context.Team.AddAsync(teamEntity);
+        }
+        else
+        {
+            existingEntity.Name = team.Name;
+            existingEntity.League = team.League;
+            existingEntity.Logo = team.Logo;
+            existingEntity.Code = team.Code;
+            existingEntity.Country = team.Country;
+            existingEntity.Founded = team.Founded;
+            existingEntity.UpdatedAt = DateTime.UtcNow;
+        }
 
-    // public async Task<bool> DeleteTeamAsync(int id)
-    // {
-    //     var team = await _context.Teams.FindAsync(id);
-    //     if (team == null)
-    //     {
-    //         return false;
-    //     }
-    //
-    //     _context.Teams.Remove(team);
-    //     await _context.SaveChangesAsync();
-    //     return true;
-    // }
+        await _context.SaveChangesAsync();
+    }
 }
