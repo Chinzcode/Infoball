@@ -28,7 +28,11 @@ public class TeamRepository : ITeamRepository
         {
             Id = teamEntity.Id,
             Name = teamEntity.Name,
-            League = teamEntity.League
+            League = teamEntity.League ?? string.Empty,
+            Logo = teamEntity.Logo,
+            Code = teamEntity.Code,
+            Country = teamEntity.Country,
+            Founded = teamEntity.Founded
         };
     }
 
