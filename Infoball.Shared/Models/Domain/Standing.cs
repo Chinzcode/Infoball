@@ -4,8 +4,11 @@ namespace Infoball.Shared.Models.Domain;
 
 public class Standing
 {
-    public int Rank { get; set; }
+    public int Id { get; set; }
+    public int LeagueId { get; set; }
+    public int Season { get; set; }
     public int TeamId { get; set; }
+    public int Rank { get; set; }
     public int Points { get; set; }
     public int MatchesPlayed { get; set; }
     public int Wins { get; set; }
@@ -13,7 +16,12 @@ public class Standing
     public int Losses { get; set; }
     public int GoalsFor { get; set; }
     public int GoalsAgainst { get; set; }
-    public int GoalsDifference { get; set; }
+    public int GoalDifference { get; set; }
+    public string? Form { get; set; }
+
+    public Team? Team { get; set; }
+
+    public DateTime LastUpdated { get; set; }
 
     public StandingDTO ToDto()
     {
@@ -28,7 +36,8 @@ public class Standing
             Losses = Losses,
             GoalsFor = GoalsFor,
             GoalsAgainst = GoalsAgainst,
-            GoalsDifference = GoalsDifference
+            GoalDifference = GoalDifference,
+            Form = Form
         };
     }
 }

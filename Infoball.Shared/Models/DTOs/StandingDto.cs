@@ -11,5 +11,6 @@ public class StandingDTO
     public int Losses { get; set; }
     public int GoalsFor { get; set; }
     public int GoalsAgainst { get; set; }
-    public int GoalsDifference { get; set; }
+    public int GoalDifference { get; set; }
+    public string? Form { get; set; }
 }
