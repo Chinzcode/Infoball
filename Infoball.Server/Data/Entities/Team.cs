@@ -17,6 +17,9 @@ public class Team
     [MaxLength(50)]
     public string? Country { get; set; }
 
+    [MaxLength(50)]
+    public string? League { get; set; }
+
     public int? Founded { get; set; }
 
     [MaxLength(500)]
