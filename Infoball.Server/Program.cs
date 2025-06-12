@@ -29,13 +29,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Add services to the container
 builder.Services.AddOpenApi();
-
-// Add API controllers
 builder.Services.AddControllers();
 
-//Register services
-builder.Services.AddScoped<ITeamService, TeamService>();
+//Repositories
+builder.Services.AddScoped<ILeagueRepository, LeagueRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+//Business Services
+builder.Services.AddScoped<ITeamService, TeamService>();
+//External API Clients
 builder.Services.AddHttpClient<IApiClient, FootballApiClient>();
 builder.Services.AddScoped<IStandingsApiClient, StandingsApiClient>();
 
