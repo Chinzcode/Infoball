@@ -35,7 +35,7 @@ namespace Infoball.Server.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Team",
+                name: "Teams",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -52,7 +52,7 @@ namespace Infoball.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Team", x => x.Id);
+                    table.PrimaryKey("PK_Teams", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -118,7 +118,7 @@ namespace Infoball.Server.Migrations
                     AwayGoalsAgainst = table.Column<int>(type: "int", nullable: false),
                     LastUpdated = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    SeasonId = table.Column<int>(type: "int", nullable: true)
+                    SeasonEntityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -130,14 +130,14 @@ namespace Infoball.Server.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Standings_Seasons_SeasonId",
-                        column: x => x.SeasonId,
+                        name: "FK_Standings_Seasons_SeasonEntityId",
+                        column: x => x.SeasonEntityId,
                         principalTable: "Seasons",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Standings_Team_TeamId",
+                        name: "FK_Standings_Teams_TeamId",
                         column: x => x.TeamId,
-                        principalTable: "Team",
+                        principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -171,9 +171,9 @@ namespace Infoball.Server.Migrations
                 column: "Rank");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Standings_SeasonId",
+                name: "IX_Standings_SeasonEntityId",
                 table: "Standings",
-                column: "SeasonId");
+                column: "SeasonEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Standings_TeamId",
@@ -181,8 +181,8 @@ namespace Infoball.Server.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Team_Name",
-                table: "Team",
+                name: "IX_Teams_Name",
+                table: "Teams",
                 column: "Name");
         }
 
@@ -196,7 +196,7 @@ namespace Infoball.Server.Migrations
                 name: "Seasons");
 
             migrationBuilder.DropTable(
-                name: "Team");
+                name: "Teams");
 
             migrationBuilder.DropTable(
                 name: "Leagues");

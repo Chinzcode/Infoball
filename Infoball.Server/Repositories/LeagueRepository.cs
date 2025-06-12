@@ -2,6 +2,7 @@ using Infoball.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Infoball.Shared.Models.Domain;
 using Infoball.Server.Repositories.Interfaces;
+using Infoball.Server.Data.Entities;
 
 namespace Infoball.Server.Repositories
 {
@@ -35,7 +36,7 @@ namespace Infoball.Server.Repositories
 
             if (existingEntity == null)
             {
-                var leagueEntity = new Infoball.Server.Data.Entities.League
+                var leagueEntity = new LeagueEntity
                 {
                     Id = league.Id,
                     Name = league.Name,

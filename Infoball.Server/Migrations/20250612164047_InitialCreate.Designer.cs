@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infoball.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250611122948_InitialCreate")]
+    [Migration("20250612164047_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -22,7 +22,7 @@ namespace Infoball.Server.Migrations
                 .HasAnnotation("ProductVersion", "9.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Infoball.Server.Data.Entities.League", b =>
+            modelBuilder.Entity("Infoball.Server.Data.Entities.LeagueEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,7 +59,7 @@ namespace Infoball.Server.Migrations
                     b.ToTable("Leagues");
                 });
 
-            modelBuilder.Entity("Infoball.Server.Data.Entities.Season", b =>
+            modelBuilder.Entity("Infoball.Server.Data.Entities.SeasonEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,7 +94,7 @@ namespace Infoball.Server.Migrations
                     b.ToTable("Seasons");
                 });
 
-            modelBuilder.Entity("Infoball.Server.Data.Entities.Standing", b =>
+            modelBuilder.Entity("Infoball.Server.Data.Entities.StandingEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -184,7 +184,7 @@ namespace Infoball.Server.Migrations
                     b.Property<int>("Season")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SeasonId")
+                    b.Property<int?>("SeasonEntityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -201,7 +201,7 @@ namespace Infoball.Server.Migrations
 
                     b.HasIndex("Rank");
 
-                    b.HasIndex("SeasonId");
+                    b.HasIndex("SeasonEntityId");
 
                     b.HasIndex("TeamId");
 
@@ -213,7 +213,7 @@ namespace Infoball.Server.Migrations
                     b.ToTable("Standings");
                 });
 
-            modelBuilder.Entity("Infoball.Server.Data.Entities.Team", b =>
+            modelBuilder.Entity("Infoball.Server.Data.Entities.TeamEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -256,56 +256,56 @@ namespace Infoball.Server.Migrations
 
                     b.HasIndex("Name");
 
-                    b.ToTable("Team");
+                    b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("Infoball.Server.Data.Entities.Season", b =>
+            modelBuilder.Entity("Infoball.Server.Data.Entities.SeasonEntity", b =>
                 {
-                    b.HasOne("Infoball.Server.Data.Entities.League", "League")
+                    b.HasOne("Infoball.Server.Data.Entities.LeagueEntity", "Leagues")
                         .WithMany("Seasons")
                         .HasForeignKey("LeagueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("League");
+                    b.Navigation("Leagues");
                 });
 
-            modelBuilder.Entity("Infoball.Server.Data.Entities.Standing", b =>
+            modelBuilder.Entity("Infoball.Server.Data.Entities.StandingEntity", b =>
                 {
-                    b.HasOne("Infoball.Server.Data.Entities.League", "League")
+                    b.HasOne("Infoball.Server.Data.Entities.LeagueEntity", "Leagues")
                         .WithMany("Standings")
                         .HasForeignKey("LeagueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Infoball.Server.Data.Entities.Season", null)
+                    b.HasOne("Infoball.Server.Data.Entities.SeasonEntity", null)
                         .WithMany("Standings")
-                        .HasForeignKey("SeasonId");
+                        .HasForeignKey("SeasonEntityId");
 
-                    b.HasOne("Infoball.Server.Data.Entities.Team", "Team")
+                    b.HasOne("Infoball.Server.Data.Entities.TeamEntity", "Teams")
                         .WithMany("Standings")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("League");
+                    b.Navigation("Leagues");
 
-                    b.Navigation("Team");
+                    b.Navigation("Teams");
                 });
 
-            modelBuilder.Entity("Infoball.Server.Data.Entities.League", b =>
+            modelBuilder.Entity("Infoball.Server.Data.Entities.LeagueEntity", b =>
                 {
                     b.Navigation("Seasons");
 
                     b.Navigation("Standings");
                 });
 
-            modelBuilder.Entity("Infoball.Server.Data.Entities.Season", b =>
+            modelBuilder.Entity("Infoball.Server.Data.Entities.SeasonEntity", b =>
                 {
                     b.Navigation("Standings");
                 });
 
-            modelBuilder.Entity("Infoball.Server.Data.Entities.Team", b =>
+            modelBuilder.Entity("Infoball.Server.Data.Entities.TeamEntity", b =>
                 {
                     b.Navigation("Standings");
                 });

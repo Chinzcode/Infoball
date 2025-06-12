@@ -1,16 +1,15 @@
 using ApiTeam = Infoball.Server.ExternalAPIs.ApiFootball.Models.Standings.Team;
 using ApiTeamStanding = Infoball.Server.ExternalAPIs.ApiFootball.Models.Standings.TeamStanding;
-using DomainTeam = Infoball.Shared.Models.Domain.Team;
-using DomainStanding = Infoball.Shared.Models.Domain.Standing;
-using EntityStanding = Infoball.Server.Data.Entities.Standing;
+using Infoball.Server.Data.Entities;
+using Infoball.Shared.Models.Domain;
 
 namespace Infoball.Server.ExternalAPIs.ApiFootball.Mappers;
 
 public static class StandingsMapper
 {
-    public static DomainStanding ToDomain(this ApiTeamStanding apiStanding, int leagueId, int season)
+    public static Standing ToDomain(this ApiTeamStanding apiStanding, int leagueId, int season)
     {
-        return new DomainStanding
+        return new Standing
         {
             Rank = apiStanding.Rank,
             TeamId = apiStanding.Team?.Id ?? 0,
@@ -29,9 +28,9 @@ public static class StandingsMapper
         };
     }
 
-    public static DomainTeam ToDomain(this ApiTeam apiTeam, string leagueName)
+    public static Team ToDomain(this ApiTeam apiTeam, string leagueName)
     {
-        return new DomainTeam
+        return new Team
         {
             Id = apiTeam.Id,
             Name = apiTeam.Name ?? string.Empty,
@@ -40,24 +39,24 @@ public static class StandingsMapper
         };
     }
 
-    public static EntityStanding ToEntity(this DomainStanding domain)
+    public static StandingEntity ToEntity(this Standing standing)
     {
-        return new EntityStanding
+        return new StandingEntity
         {
-            LeagueId = domain.LeagueId,
-            Season = domain.Season,
-            TeamId = domain.TeamId,
-            Rank = domain.Rank,
-            Points = domain.Points,
-            MatchesPlayed = domain.MatchesPlayed,
-            Wins = domain.Wins,
-            Draws = domain.Draws,
-            Losses = domain.Losses,
-            GoalsFor = domain.GoalsFor,
-            GoalsAgainst = domain.GoalsAgainst,
-            GoalDifference = domain.GoalDifference,
-            Form = domain.Form,
-            LastUpdated = domain.LastUpdated,
+            LeagueId = standing.LeagueId,
+            Season = standing.Season,
+            TeamId = standing.TeamId,
+            Rank = standing.Rank,
+            Points = standing.Points,
+            MatchesPlayed = standing.MatchesPlayed,
+            Wins = standing.Wins,
+            Draws = standing.Draws,
+            Losses = standing.Losses,
+            GoalsFor = standing.GoalsFor,
+            GoalsAgainst = standing.GoalsAgainst,
+            GoalDifference = standing.GoalDifference,
+            Form = standing.Form,
+            LastUpdated = standing.LastUpdated,
             CreatedAt = DateTime.Now,
         };
     }

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Infoball.Server.Repositories.Interfaces;
 using Infoball.Shared.Models.Domain;
 using Infoball.Server.Data;
+using Infoball.Server.Data.Entities;
 
 namespace Infoball.Server.Repositories;
 
@@ -17,7 +18,7 @@ public class TeamRepository : ITeamRepository
     public async Task<Team?> GetTeamByIdAsync(int id)
     {
 
-        var teamEntity = await _context.Team.FirstOrDefaultAsync(t => t.Id == id);
+        var teamEntity = await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
 
         if (teamEntity == null)
         {
@@ -38,11 +39,11 @@ public class TeamRepository : ITeamRepository
 
     public async Task SaveTeamAsync(Team team)
     {
-        var existingEntity = await _context.Team.FirstOrDefaultAsync(t => t.Id == team.Id);
+        var existingEntity = await _context.Teams.FirstOrDefaultAsync(t => t.Id == team.Id);
 
         if (existingEntity == null)
         {
-            var teamEntity = new Infoball.Server.Data.Entities.Team
+            var teamEntity = new TeamEntity
             {
                 Id = team.Id,
                 Name = team.Name,
@@ -56,7 +57,7 @@ public class TeamRepository : ITeamRepository
                 UpdatedAt = DateTime.Now
             };
 
-            await _context.Team.AddAsync(teamEntity);
+            await _context.Teams.AddAsync(teamEntity);
         }
         else
         {

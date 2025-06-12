@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Infoball.Server.Repositories.Interfaces;
 using Infoball.Shared.Models.Domain;
 using Infoball.Server.Data;
+using Infoball.Server.ExternalAPIs.ApiFootball.Mappers;
 
 namespace Infoball.Server.Repositories;
 
@@ -14,11 +15,11 @@ public class StandingsRepository : IStandingsRepository
         _context = context;
     }
 
-    public async Task<List<Standing>?> GetLeagueStandingsAsync(int leagueId, int season)
+    public async Task<List<Standing>?> GetStandingsAsync(int leagueId, int season)
     {
-        var standingEntities = await _context.Standing
+        var standingEntities = await _context.Standings
           .Where(s => s.LeagueId == leagueId && s.Season == season)
-          .Include(s => s.Team)
+          .Include(s => s.Teams)
           .OrderBy(s => s.Rank)
           .ToListAsync();
 
@@ -40,5 +41,22 @@ public class StandingsRepository : IStandingsRepository
             GoalsAgainst = entity.GoalsAgainst,
             GoalDifference = entity.GoalDifference
         }).ToList();
+    }
+
+    public async Task SaveStandingsAsync(List<Standing> standings, int leagueId, int season)
+    {
+        var existingStandings = await _context.Standings
+          .Where(s => s.LeagueId == leagueId && s.Season == season)
+          .ToListAsync();
+
+        if (existingStandings.Any())
+        {
+            _context.Standings.RemoveRange(existingStandings);
+        }
+
+        var standingEntities = standings.Select(s => s.ToEntity()).ToList();
+
+        await _context.Standings.AddRangeAsync(standingEntities);
+        await _context.SaveChangesAsync();
     }
 }

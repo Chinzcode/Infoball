@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Infoball.Server.Data.Entities;
 
-public class Team
+public class TeamEntity
 {
     [Key]
     public int Id { get; set; }
@@ -31,5 +31,5 @@ public class Team
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     // Navigation properties
-    public ICollection<Standing> Standings { get; set; } = new List<Standing>();
+    public ICollection<StandingEntity> Standings { get; set; } = new List<StandingEntity>();
 }
