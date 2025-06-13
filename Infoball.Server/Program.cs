@@ -30,6 +30,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add services to the container
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
+builder.Services.AddHybridCache();
 
 //Repositories
 builder.Services.AddScoped<ILeagueRepository, LeagueRepository>();

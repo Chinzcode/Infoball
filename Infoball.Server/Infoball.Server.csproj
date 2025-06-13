@@ -19,6 +19,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="9.6.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="9.0.3" />
     <PackageReference Include="NSwag.AspNetCore" Version="14.4.0" />
