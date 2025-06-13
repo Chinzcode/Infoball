@@ -38,6 +38,7 @@ builder.Services.AddScoped<IStandingsRepository, StandingsRepository>();
 
 //Business Services
 builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<IStandingsService, StandingsService>();
 
 //External API Clients
 builder.Services.AddHttpClient<IApiClient, FootballApiClient>();
