@@ -34,8 +34,11 @@ builder.Services.AddControllers();
 //Repositories
 builder.Services.AddScoped<ILeagueRepository, LeagueRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+builder.Services.AddScoped<IStandingsRepository, StandingsRepository>();
+
 //Business Services
 builder.Services.AddScoped<ITeamService, TeamService>();
+
 //External API Clients
 builder.Services.AddHttpClient<IApiClient, FootballApiClient>();
 builder.Services.AddScoped<IStandingsApiClient, StandingsApiClient>();

@@ -4,5 +4,6 @@ namespace Infoball.Server.Repositories.Interfaces;
 
 public interface IStandingsRepository
 {
-    Task<List<Standing>?> GetLeagueStandingsAsync(int season, int league);
+    Task<List<Standing>?> GetStandingsAsync(int season, int league);
+    Task SaveStandingsAsync(List<Standing> standings, int leagueId, int season);
 }
