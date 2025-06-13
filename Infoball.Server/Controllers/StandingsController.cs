@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Infoball.Server.ExternalAPIs.ApiFootball.Interfaces;
-using Infoball.Server.ExternalAPIs.ApiFootball.Models;
+using Infoball.Server.Services.Interfaces;
 
 namespace Infoball.Server.Controllers;
 
@@ -8,11 +7,13 @@ namespace Infoball.Server.Controllers;
 [Route("api/[controller]")]
 public class StandingsController : ControllerBase
 {
-    private readonly IStandingsApiClient _standingsClient;
+    private readonly IStandingsService _standingsService;
+    private readonly ILogger<StandingsController> _logger;
 
-    public StandingsController(IStandingsApiClient standingsClient)
+    public StandingsController(IStandingsService standingsService, ILogger<StandingsController> logger)
     {
-        _standingsClient = standingsClient;
+        _standingsService = standingsService;
+        _logger = logger;
     }
 
     [HttpGet("{league}/{season}")]
@@ -25,25 +26,20 @@ public class StandingsController : ControllerBase
                 return BadRequest("League and season numbers not valid");
             }
 
-            var standings = await _standingsClient.GetStandingsAsync<StandingsResponse[]>(league, season);
+            var standings = await _standingsService.GetStandingsAsync(league, season);
 
-            if (standings == null)
+            if (standings == null || !standings.Any())
             {
                 return NotFound("No standings data found for the specified league and season");
             }
 
-            return Ok(standings);
+            var standingsDtos = standings.Select(s => s.ToDto()).ToList();
+            return Ok(standingsDtos);
         }
         catch (Exception ex)
         {
-
-            return StatusCode(500, $"Error: {ex.Message}");
+            _logger.LogError(ex, "Error getting standings for league {League}, season {Season}", league, season);
+            return StatusCode(500, "An error occurred while processing your request");
         }
     }
-
-    // [HttpGet("{league}/{season}")]
-    // public async Task<IActionResult> GetStandinsByRoute(int league, int season)
-    // {
-    //     return await GetStandings(league, season);
-    // }
 }
